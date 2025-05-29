@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Appointment } from './entities/Appointment.Entity';
+import { JwtPayload } from '../auth/Constants';
 
 @Injectable()
 export class AppointmentRepository {
@@ -12,6 +13,7 @@ export class AppointmentRepository {
 
   async createAppointment(
     appointment: Partial<Appointment>,
+    user: JwtPayload,
   ): Promise<Appointment> {
     const { therapistId, appointmentDate, startTime, endTime } = appointment;
 
@@ -34,11 +36,18 @@ export class AppointmentRepository {
     if (conflict) {
       throw new BadRequestException('Time slot already booked');
     }
-    const newAppointment = this.repository.create(appointment);
+    const newAppointment = this.repository.create({
+      ...appointment,
+      userId: user.sub,
+    });
     return this.repository.save(newAppointment);
   }
 
   async findAllAppointments(): Promise<Appointment[]> {
     return this.repository.find({});
+  }
+
+  async findMyAppointments(user: JwtPayload): Promise<Appointment[]> {
+    return this.repository.find({ where: { userId: user.sub } });
   }
 }

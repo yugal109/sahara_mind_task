@@ -4,9 +4,6 @@ import { IsEndTimeAfterStartTime } from './StartEndTimeValidationCheck';
 
 export class CreateAppointmentDto {
   @IsUUID()
-  userId: string;
-
-  @IsUUID()
   therapistId: string;
 
   @IsDate()
