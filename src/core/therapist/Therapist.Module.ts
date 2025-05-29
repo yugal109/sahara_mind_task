@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TherapistDIToken } from './TherapistDIToken';
 import { TherapistController } from './Therapist.Controller';
 import { TherapistRepository } from './Therapist.Repository';
-import { TherapistService } from './therapist.service';
+import { TherapistService } from './Therapist.Service';
 @Module({
   imports: [TherapistDIToken.TherapistEntity],
   controllers: [TherapistController],

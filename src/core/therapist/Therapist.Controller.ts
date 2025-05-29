@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
-import { TherapistService } from './therapist.service';
-import { Therapist } from './entities/therapist.entity';
+import { TherapistService } from './Therapist.Service';
+import { Therapist } from './entities/Therapist.Entity';
 import { CreateTherapistDto } from './dto/CreateTherapistDto';
 import { FilterTherapistDto } from './dto/FilterTherapistDto';
 
